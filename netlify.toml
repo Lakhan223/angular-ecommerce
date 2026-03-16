@@ -1,0 +1,6 @@
+[build]
+command = "npm install && npm run build"
+publish = "dist/ecommerce-client/browser"
+
+[build.environment]
+NETLIFY_SKIP_PLUGIN = "true"
