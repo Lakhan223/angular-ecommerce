@@ -1,0 +1,46 @@
+<h3 class="fw-bold mb-4">Brands</h3>
+<app-admin-nav></app-admin-nav>
+
+@if (error()) {
+  <div class="alert alert-warning">{{ error() }}</div>
+}
+
+<div class="surface p-4 mb-4">
+  <h6 class="fw-bold">{{ isEdit ? 'Edit Brand' : 'New Brand' }}</h6>
+  <div class="row g-3">
+    <div class="col-md-4">
+      <input class="form-control" placeholder="Name" [(ngModel)]="form.name" />
+    </div>
+    <div class="col-md-4">
+      <input class="form-control" placeholder="Slug" [(ngModel)]="form.slug" />
+    </div>
+    <div class="col-md-4 d-flex gap-2">
+      <button class="btn btn-brand" (click)="save()">Save</button>
+      <button class="btn btn-outline-secondary" (click)="reset()">Reset</button>
+    </div>
+  </div>
+</div>
+
+<div class="surface p-4">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Slug</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (brand of brands(); track brand.id) {
+        <tr>
+          <td>{{ brand.name }}</td>
+          <td>{{ brand.slug }}</td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-primary me-2" (click)="edit(brand)">Edit</button>
+            <button class="btn btn-sm btn-outline-danger" (click)="remove(brand.id)">Delete</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

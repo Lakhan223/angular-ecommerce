@@ -1,0 +1,35 @@
+﻿<h3 class="fw-bold mb-4">Order History</h3>
+
+@if (loading()) {
+  <div class="text-center py-4">Loading...</div>
+} @else {
+  <div class="d-flex flex-column gap-3">
+    @for (order of orders(); track order.id) {
+      <div class="surface p-4">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h6 class="fw-bold">Order {{ order.id }}</h6>
+            <p class="text-muted mb-1">Placed: {{ order.createdAt | date }}</p>
+          </div>
+          <div class="text-end">
+            <div class="fw-bold">Rs {{ order.total }}</div>
+            <span class="badge badge-accent">{{ order.status }}</span>
+          </div>
+        </div>
+        <div class="mt-3">
+          @for (item of order.items; track item.productId) {
+            <div class="d-flex justify-content-between">
+              <span>
+                {{ item.name }} x{{ item.quantity }}
+                @if (item.size) {
+                  <span class="text-muted"> (Size: {{ item.size }})</span>
+                }
+              </span>
+              <span>Rs {{ item.totalPrice }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+}

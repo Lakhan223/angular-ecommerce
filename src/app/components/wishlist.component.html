@@ -1,0 +1,24 @@
+﻿<h3 class="fw-bold mb-4">Wishlist</h3>
+
+@if (items().length === 0) {
+  <div class="surface p-4 text-center">
+    <p class="mb-2">Your wishlist is empty.</p>
+    <a routerLink="/" class="btn btn-brand">Browse Products</a>
+  </div>
+} @else {
+  <div class="row g-4">
+    @for (item of items(); track item.id) {
+      <div class="col-md-6 col-lg-4">
+        <div class="card p-3 h-100">
+          <img [src]="item.imageUrl || 'https://placehold.co/400x300'" class="img-fluid rounded mb-3" />
+          <h6 class="fw-bold">{{ item.name }}</h6>
+          <p class="text-muted">Rs {{ item.price }}</p>
+          <div class="d-flex justify-content-between">
+            <a class="btn btn-outline-primary btn-sm" [routerLink]="['/product', item.id]">View</a>
+            <button class="btn btn-outline-danger btn-sm" (click)="remove(item.id)">Remove</button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}

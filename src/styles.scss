@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&family=Space+Grotesk:wght@400;600;700&display=swap');
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+:root {
+  --brand: #0f766e;
+  --brand-strong: #115e59;
+  --accent: #f97316;
+  --bg: #f7f5f2;
+  --surface: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+}
+
+body {
+  font-family: "Manrope", "Space Grotesk", "Segoe UI", sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 20% 10%, #fff1db 0%, #f7f1e7 38%, #e8efee 100%);
+  min-height: 100vh;
+}
+
+body.dark {
+  --bg: #0f172a;
+  --surface: #111827;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  background: radial-gradient(circle at 20% 10%, #1f2937 0%, #0f172a 45%, #020617 100%);
+}
+
+.app-shell {
+  min-height: 100vh;
+  background-color: transparent;
+  position: relative;
+}
+
+.app-shell::before,
+.app-shell::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app-shell::before {
+  background:
+    linear-gradient(120deg, rgba(15, 118, 110, 0.05), rgba(249, 115, 22, 0.03)),
+    repeating-linear-gradient(
+      135deg,
+      rgba(15, 118, 110, 0.05) 0,
+      rgba(15, 118, 110, 0.05) 2px,
+      transparent 2px,
+      transparent 18px
+    );
+  opacity: 0.7;
+}
+
+.app-shell::after {
+  background:
+    radial-gradient(circle at 10% 20%, rgba(249, 115, 22, 0.16), transparent 38%),
+    radial-gradient(circle at 80% 10%, rgba(15, 118, 110, 0.12), transparent 40%),
+    radial-gradient(circle at 70% 80%, rgba(14, 116, 144, 0.1), transparent 45%);
+  opacity: 0.85;
+}
+
+.app-shell > * {
+  position: relative;
+  z-index: 1;
+}
+
+.navbar-brand {
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+  border-radius: 16px;
+}
+
+.product-card-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 14px;
+  background: #f1f5f9;
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.product-card-media {
+  overflow: hidden;
+  border-radius: 14px;
+  background: #f1f5f9;
+}
+
+.card:hover .product-card-img {
+  transform: scale(1.06);
+  filter: saturate(1.05);
+}
+
+.product-detail-main {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  background: #f1f5f9;
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.product-detail-main:hover {
+  transform: scale(1.04);
+  filter: saturate(1.05);
+  cursor: zoom-in;
+}
+
+.product-thumb {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.btn-brand {
+  background: var(--brand);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.6rem 1.4rem;
+}
+
+.btn-brand:hover {
+  background: var(--brand-strong);
+  color: #fff;
+}
+
+.badge-accent {
+  background: var(--accent);
+}
+
+.surface {
+  background: var(--surface);
+  border-radius: 18px;
+}
+
+.text-muted {
+  color: var(--muted) !important;
+}

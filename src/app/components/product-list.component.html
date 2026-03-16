@@ -1,0 +1,89 @@
+﻿<section class="row g-4 align-items-stretch">
+  <div class="col-lg-3">
+    <div class="surface p-4">
+      <h5 class="fw-bold">Filters</h5>
+      <div class="mb-3">
+        <label class="form-label">Search</label>
+        <input class="form-control" [(ngModel)]="searchText" placeholder="Search products" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select class="form-select" [(ngModel)]="selectedCategoryId">
+          <option [ngValue]="null">All</option>
+          @for (cat of categories(); track cat.id) {
+            <option [ngValue]="cat.id">{{ cat.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Brand</label>
+        <select class="form-select" [(ngModel)]="selectedBrandId">
+          <option [ngValue]="null">All</option>
+          @for (brand of brands(); track brand.id) {
+            <option [ngValue]="brand.id">{{ brand.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Price range</label>
+        <div class="d-flex gap-2">
+          <input type="number" class="form-control" [(ngModel)]="minPrice" placeholder="Min" />
+          <input type="number" class="form-control" [(ngModel)]="maxPrice" placeholder="Max" />
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Sort</label>
+        <select class="form-select" [(ngModel)]="sortValue">
+          <option value="newest">Newest</option>
+          <option value="priceAsc">Price: Low to High</option>
+          <option value="priceDesc">Price: High to Low</option>
+          <option value="nameAsc">Name: A-Z</option>
+          <option value="nameDesc">Name: Z-A</option>
+        </select>
+      </div>
+      <button class="btn btn-brand w-100" (click)="applyFilters()">Apply</button>
+    </div>
+  </div>
+
+  <div class="col-lg-9">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <h4 class="fw-bold mb-1">Trending Products</h4>
+        <p class="text-muted">{{ total() }} items available</p>
+      </div>
+      <div class="text-muted">Page {{ page() }} of {{ pageCount() }}</div>
+    </div>
+
+    <div class="row g-4">
+      @for (item of items(); track item.id) {
+        <div class="col-md-6 col-xl-4">
+          <div class="card h-100 p-3">
+            <div class="product-card-media mb-3">
+              <img
+                class="product-card-img"
+                [src]="resolveImage(item.primaryImageUrl)"
+                alt="product"
+              />
+            </div>
+            <h6 class="fw-bold">{{ item.name }}</h6>
+            <p class="text-muted mb-2">{{ item.brand }} · {{ item.category }}</p>
+            <div class="d-flex align-items-center justify-content-between">
+              <div>
+                <span class="fw-bold">Rs {{ item.price }}</span>
+                @if (item.oldPrice) {
+                  <span class="text-muted text-decoration-line-through ms-2">Rs {{ item.oldPrice }}</span>
+                }
+              </div>
+              <a class="btn btn-outline-primary btn-sm" [routerLink]="['/product', item.id]">View</a>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4">
+      <button class="btn btn-outline-secondary" (click)="prevPage()">Previous</button>
+      <button class="btn btn-outline-secondary" (click)="nextPage()">Next</button>
+    </div>
+  </div>
+</section>

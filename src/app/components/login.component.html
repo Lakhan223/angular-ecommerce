@@ -1,0 +1,25 @@
+<div class="row justify-content-center">
+  <div class="col-lg-5">
+    <div class="surface p-4">
+      <form (ngSubmit)="login()">
+        <h3 class="fw-bold mb-3">Login</h3>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input class="form-control" name="email" [(ngModel)]="email" type="email" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input class="form-control" name="password" [(ngModel)]="password" type="password" />
+        </div>
+        @if (error()) {
+          <div class="alert alert-danger">{{ error() }}</div>
+        }
+        <button class="btn btn-brand w-100" type="submit">Login</button>
+        <div class="d-flex justify-content-between mt-3">
+          <a routerLink="/forgot-password" class="text-muted">Forgot password?</a>
+          <a routerLink="/register" class="text-muted">Create account</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

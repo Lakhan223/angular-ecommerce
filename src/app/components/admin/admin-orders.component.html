@@ -1,0 +1,35 @@
+﻿<h3 class="fw-bold mb-4">Orders</h3>
+<app-admin-nav></app-admin-nav>
+
+<div class="surface p-4">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Order Id</th>
+        <th>User</th>
+        <th>Total</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (order of orders(); track order.id) {
+        <tr>
+          <td>{{ order.id }}</td>
+          <td>{{ order.userEmail }}</td>
+          <td>Rs {{ order.total }}</td>
+          <td>
+            <select class="form-select form-select-sm" [(ngModel)]="order.status">
+              @for (status of statuses; track status.value) {
+                <option [value]="status.value">{{ status.label }}</option>
+              }
+            </select>
+          </td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-primary" (click)="updateStatus(order, order.status)">Update</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

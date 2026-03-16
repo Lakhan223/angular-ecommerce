@@ -1,0 +1,11 @@
+G:\Codex\ECommercePro\ECommerce.Client\bin\Debug\net10.0\ECommerce.Client.deps.json
+G:\Codex\ECommercePro\ECommerce.Client\bin\Debug\net10.0\ECommerce.Client.dll
+G:\Codex\ECommercePro\ECommerce.Client\bin\Debug\net10.0\ECommerce.Client.pdb
+G:\Codex\ECommercePro\ECommerce.Client\obj\Debug\net10.0\ECommerce.Client.GeneratedMSBuildEditorConfig.editorconfig
+G:\Codex\ECommercePro\ECommerce.Client\obj\Debug\net10.0\ECommerce.Client.AssemblyInfoInputs.cache
+G:\Codex\ECommercePro\ECommerce.Client\obj\Debug\net10.0\ECommerce.Client.AssemblyInfo.cs
+G:\Codex\ECommercePro\ECommerce.Client\obj\Debug\net10.0\ECommerce.Client.csproj.CoreCompileInputs.cache
+G:\Codex\ECommercePro\ECommerce.Client\obj\Debug\net10.0\ECommerce.Client.dll
+G:\Codex\ECommercePro\ECommerce.Client\obj\Debug\net10.0\refint\ECommerce.Client.dll
+G:\Codex\ECommercePro\ECommerce.Client\obj\Debug\net10.0\ECommerce.Client.pdb
+G:\Codex\ECommercePro\ECommerce.Client\obj\Debug\net10.0\ref\ECommerce.Client.dll

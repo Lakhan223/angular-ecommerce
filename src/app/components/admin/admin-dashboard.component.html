@@ -1,0 +1,33 @@
+﻿<h3 class="fw-bold mb-4">Admin Dashboard</h3>
+<app-admin-nav></app-admin-nav>
+
+@if (dashboard()) {
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-3">
+      <div class="surface p-4">
+        <p class="text-muted">Total Orders</p>
+        <h4 class="fw-bold">{{ dashboard()!.totalOrders }}</h4>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="surface p-4">
+        <p class="text-muted">Pending Orders</p>
+        <h4 class="fw-bold">{{ dashboard()!.pendingOrders }}</h4>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="surface p-4">
+        <p class="text-muted">Revenue</p>
+        <h4 class="fw-bold">Rs {{ dashboard()!.totalRevenue }}</h4>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="surface p-4">
+        <p class="text-muted">Customers</p>
+        <h4 class="fw-bold">{{ dashboard()!.totalCustomers }}</h4>
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="text-muted">Loading dashboard...</div>
+}

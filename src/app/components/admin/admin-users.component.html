@@ -1,0 +1,64 @@
+﻿<h3 class="fw-bold mb-4">Users</h3>
+<app-admin-nav></app-admin-nav>
+
+<div class="surface p-4 mb-4">
+  <h6 class="fw-bold">Create User</h6>
+  <div class="row g-3">
+    <div class="col-md-3"><input class="form-control" placeholder="Email" [(ngModel)]="newUser.email" /></div>
+    <div class="col-md-2"><input class="form-control" placeholder="Password" [(ngModel)]="newUser.password" /></div>
+    <div class="col-md-2"><input class="form-control" placeholder="First name" [(ngModel)]="newUser.firstName" /></div>
+    <div class="col-md-2"><input class="form-control" placeholder="Last name" [(ngModel)]="newUser.lastName" /></div>
+    <div class="col-md-2">
+      <select class="form-select" [(ngModel)]="newUser.role">
+        @for (role of roles; track role) {
+          <option [value]="role">{{ role }}</option>
+        }
+      </select>
+    </div>
+    <div class="col-md-1 d-flex align-items-center">
+      <button class="btn btn-brand w-100" (click)="createUser()">Add</button>
+    </div>
+  </div>
+</div>
+
+<div class="surface p-4">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Reset Password</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (user of users(); track user.id) {
+        <tr>
+          <td>{{ user.email }}</td>
+          <td>{{ user.firstName }} {{ user.lastName }}</td>
+          <td>
+            <select class="form-select form-select-sm" [(ngModel)]="user.role" (change)="changeRole(user, user.role)">
+              @for (role of roles; track role) {
+                <option [value]="role">{{ role }}</option>
+              }
+            </select>
+          </td>
+          <td>
+            <div class="d-flex gap-2">
+              <input
+                class="form-control form-control-sm"
+                placeholder="New password"
+                [(ngModel)]="resetPasswords[user.id]"
+              />
+              <button class="btn btn-sm btn-outline-primary" (click)="resetPassword(user)">Reset</button>
+            </div>
+          </td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-danger" (click)="remove(user.id)">Delete</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

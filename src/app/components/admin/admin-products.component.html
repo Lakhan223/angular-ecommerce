@@ -1,0 +1,126 @@
+﻿<h3 class="fw-bold mb-4">Products</h3>
+<app-admin-nav></app-admin-nav>
+
+<div class="surface p-4 mb-4">
+  <h6 class="fw-bold">{{ isEdit ? 'Edit Product' : 'New Product' }}</h6>
+  <div class="row g-3">
+    <div class="col-md-4"><input class="form-control" placeholder="Name" [(ngModel)]="form.name" /></div>
+    <div class="col-md-4"><input class="form-control" placeholder="SKU" [(ngModel)]="form.sku" /></div>
+    <div class="col-md-4">
+      <input class="form-control" placeholder="Size (e.g. S,M,L)" [(ngModel)]="form.size" />
+      <div class="form-text text-muted">Use comma-separated sizes for options.</div>
+    </div>
+    <div class="col-md-4"><input class="form-control" type="number" placeholder="Price" [(ngModel)]="form.price" /></div>
+    <div class="col-md-4"><input class="form-control" type="number" placeholder="Old Price" [(ngModel)]="form.oldPrice" /></div>
+    <div class="col-md-4"><input class="form-control" type="number" placeholder="Stock" [(ngModel)]="form.stock" /></div>
+    <div class="col-md-4">
+      <select class="form-select" [(ngModel)]="form.categoryId">
+        <option value="">Select Category</option>
+        @for (cat of categories(); track cat.id) {
+          <option [value]="cat.id">{{ cat.name }}</option>
+        }
+      </select>
+    </div>
+    <div class="col-md-4">
+      <select class="form-select" [(ngModel)]="form.brandId">
+        <option value="">Select Brand</option>
+        @for (brand of brands(); track brand.id) {
+          <option [value]="brand.id">{{ brand.name }}</option>
+        }
+      </select>
+    </div>
+    <div class="col-md-8">
+      <textarea class="form-control" placeholder="Description" rows="2" [(ngModel)]="form.description"></textarea>
+    </div>
+    <div class="col-12">
+      <label class="form-label">Specifications</label>
+      <div class="d-flex flex-column gap-2">
+        @for (row of specRows; track $index) {
+          <div class="d-flex gap-2">
+            <input class="form-control" placeholder="Key" [(ngModel)]="row.key" />
+            <input class="form-control" placeholder="Value" [(ngModel)]="row.value" />
+            <button class="btn btn-outline-danger" type="button" (click)="removeSpecRow($index)">Remove</button>
+          </div>
+        }
+      </div>
+      <button class="btn btn-outline-secondary mt-2" type="button" (click)="addSpecRow()">Add Spec</button>
+    </div>
+    <div class="col-12">
+      <label class="form-label">Size Variants (price by size)</label>
+      <div class="d-flex flex-column gap-2">
+        @for (row of variantRows; track $index) {
+          <div class="d-flex gap-2 flex-wrap">
+            <input class="form-control" placeholder="Size" style="max-width: 140px;" [(ngModel)]="row.size" />
+            <input class="form-control" type="number" placeholder="Price" style="max-width: 140px;" [(ngModel)]="row.price" />
+            <input class="form-control" type="number" placeholder="Old Price" style="max-width: 140px;" [(ngModel)]="row.oldPrice" />
+            <input class="form-control" type="number" placeholder="Stock" style="max-width: 120px;" [(ngModel)]="row.stock" />
+            <div class="form-check d-flex align-items-center">
+              <input class="form-check-input" type="checkbox" [(ngModel)]="row.isActive" />
+              <label class="form-check-label ms-2">Active</label>
+            </div>
+            <button class="btn btn-outline-danger" type="button" (click)="removeVariantRow($index)">Remove</button>
+          </div>
+        }
+      </div>
+      <button class="btn btn-outline-secondary mt-2" type="button" (click)="addVariantRow()">Add Variant</button>
+    </div>
+    <div class="col-md-4 d-flex align-items-center gap-2">
+      <button class="btn btn-brand" (click)="save()">Save</button>
+      <button class="btn btn-outline-secondary" (click)="reset()">Reset</button>
+    </div>
+    <div class="col-12">
+      <label class="form-label">Product Images</label>
+      <input type="file" class="form-control" multiple (change)="onFileSelected($event)" />
+      @if (isEdit && editingId) {
+        <button class="btn btn-outline-primary mt-2" (click)="uploadImage()" [disabled]="!imageFiles.length">Upload</button>
+      } @else {
+        <div class="text-muted mt-2">Images will be uploaded after you save the product.</div>
+      }
+      @if (uploadMessage()) {
+        <div class="text-muted mt-2">{{ uploadMessage() }}</div>
+      }
+      @if (currentImages.length) {
+        <div class="d-flex gap-2 flex-wrap mt-3">
+          @for (img of currentImages; track img.id) {
+            <img
+              class="rounded border"
+              [src]="resolveImage(img.url)"
+              alt="product"
+              width="80"
+              height="80"
+              style="object-fit: cover;"
+            />
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+<div class="surface p-4">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Brand</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (product of products(); track product.id) {
+        <tr>
+          <td>{{ product.name }}</td>
+          <td>{{ product.brand }}</td>
+          <td>{{ product.category }}</td>
+          <td>Rs {{ product.price }}</td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-primary me-2" (click)="edit(product.id)">Edit</button>
+            <button class="btn btn-sm btn-outline-danger" (click)="remove(product.id)">Delete</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

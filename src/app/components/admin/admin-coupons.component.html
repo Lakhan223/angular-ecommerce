@@ -1,0 +1,101 @@
+<h3 class="fw-bold mb-4">Coupons</h3>
+<app-admin-nav></app-admin-nav>
+
+<div class="surface p-4 mb-4">
+  <h6 class="fw-bold">{{ isEdit ? 'Edit Coupon' : 'New Coupon' }}</h6>
+  @if (error()) {
+    <div class="alert alert-danger">{{ error() }}</div>
+  }
+  <div class="row g-3">
+    <div class="col-md-4">
+      <label class="form-label">Code</label>
+      <div class="input-group">
+        <input class="form-control" placeholder="SAVE-XXXX" [(ngModel)]="form.code" />
+        <button class="btn btn-outline-secondary" type="button" (click)="generateCode()">Generate</button>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <label class="form-label">Description</label>
+      <input class="form-control" placeholder="New year offer" [(ngModel)]="form.description" />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Type</label>
+      <select class="form-select" [(ngModel)]="form.type">
+        <option [value]="1">Percentage</option>
+        <option [value]="2">Fixed</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Value</label>
+      <input class="form-control" type="number" [(ngModel)]="form.value" />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Min Order</label>
+      <input class="form-control" type="number" [(ngModel)]="form.minOrderAmount" />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Max Discount</label>
+      <input class="form-control" type="number" [(ngModel)]="form.maxDiscountAmount" />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Starts At</label>
+      <input class="form-control" type="date" [(ngModel)]="form.startsAt" />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Ends At</label>
+      <input class="form-control" type="date" [(ngModel)]="form.endsAt" />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Usage Limit</label>
+      <input class="form-control" type="number" [(ngModel)]="form.usageLimit" />
+    </div>
+    <div class="col-md-3 d-flex align-items-end">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" [(ngModel)]="form.isActive" />
+        <label class="form-check-label">Active</label>
+      </div>
+    </div>
+    <div class="col-12 d-flex gap-2">
+      <button class="btn btn-brand" type="button" (click)="save()">Save</button>
+      <button class="btn btn-outline-secondary" type="button" (click)="reset()">Reset</button>
+    </div>
+  </div>
+</div>
+
+<div class="surface p-4">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Type</th>
+        <th>Value</th>
+        <th>Active</th>
+        <th>Usage</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (coupon of coupons(); track coupon.id) {
+        <tr>
+          <td>{{ coupon.code }}</td>
+          <td>{{ typeLabels[coupon.type] }}</td>
+          <td>
+            @if (coupon.type === 1) {
+              {{ coupon.value }}%
+            } @else {
+              Rs {{ coupon.value }}
+            }
+          </td>
+          <td>{{ coupon.isActive ? 'Yes' : 'No' }}</td>
+          <td>
+            {{ coupon.usedCount }} / {{ coupon.usageLimit ?? '∞' }}
+          </td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-primary me-2" type="button" (click)="edit(coupon)">Edit</button>
+            <button class="btn btn-sm btn-outline-danger" type="button" (click)="remove(coupon.id)">Delete</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
