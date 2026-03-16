@@ -1,6 +1,3 @@
 [build]
 command = "npm install && npm run build"
-publish = "dist/ecommerce-client"
-
-[build.environment]
-NETLIFY_SKIP_PLUGIN = "true"
+publish = "dist/ecommerce-client/browser"
